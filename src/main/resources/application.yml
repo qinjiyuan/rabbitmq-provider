@@ -1,0 +1,21 @@
+server:
+  port: 8012
+
+spring:
+  application:
+    name: rabbitmq-consumer
+  rabbitmq:
+    host: 10.15.1.8
+    port: 5672
+    username: qinjiyuan
+    password: Radiant123
+
+messageQueue:
+  exchangeDirectName: amq.direct
+  exchangeTopicName: amq.topic
+  exchangeFanoutName: myfanout
+  bindingDirectKey: mydirectkey
+  bindingTopicKey: mytopickey.*
+  bindingFanoutKey: myfanoutkey
+
+
