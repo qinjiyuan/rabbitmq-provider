@@ -5,15 +5,26 @@ spring:
   application:
     name: rabbitmq-consumer
   rabbitmq:
-    host: 10.15.1.8
+    host: 10.0.75.1
     port: 5672
     username: qinjiyuan
     password: Radiant123
+    listener:
+      simple:
+        retry:
+          enabled: true #开启rabbitmq消息失败后的重试机制
+          max-attempts: 5 #最大的失败次数
+          initial-interval: 5000 #第一失败后的重试时间
+          max-interval: 1200000 #最大的失败间隔
+          multiplier: 4 #每次失败后失败间隔扩大的倍数
+    publisher-confirm-type: correlated #消息是否被发送成功
+
+
 
 messageQueue:
   exchangeDirectName: amq.direct
   exchangeTopicName: amq.topic
-  exchangeFanoutName: myfanout
+  exchangeFanoutName: amq.fanout
   bindingDirectKey: mydirectkey
   bindingTopicKey: mytopickey.*
   bindingFanoutKey: myfanoutkey

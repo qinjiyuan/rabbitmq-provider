@@ -1,16 +1,19 @@
 package top.mixedinfos.rabbitmqprovider.topic_provider;
 
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.Resource;
+
 @Configuration
 public class TopicSender {
     @Value("${messageQueue.exchangeTopicName}")
     private String topicExchangeName;
-    @Autowired
+    @Resource
     private AmqpTemplate rabbitTemplate;
     private Integer i = 0;
 
@@ -31,7 +34,7 @@ public class TopicSender {
 
     public void palyTopicSender(){
         System.out.println("开始发送topic消息"+ i++);
-        rabbitTemplate.convertAndSend(topicExchangeName,"mytopickey.play","这是一条direct-topic消息"+i);
+        rabbitTemplate.convertAndSend(topicExchangeName,"mytopickey.play","这是一条play-topic消息"+i);
     }
 
     public void basketballTopicSender(){
